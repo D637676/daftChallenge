@@ -99,13 +99,40 @@ Your task is to recreate these three historical DAGs using DAFT, making them vis
 ```{python}
 #| label: dag-1-1747
 #| echo: true
+#| fig-cap: "DAG 1: The 1747 Understanding - Lemons prevent scurvy (correct but incomplete)"
 
-# TODO: Replace this placeholder with your DAFT code
-# Create a DAG showing the 1747 understanding: Lemons → Scurvy Prevention
+import daft
+import matplotlib.pyplot as plt
 
-# Your code here - recreate the DAG from the reference image
-# Use DAFT to create nodes and edges that match the visual structure
-# Customize colors and styling to make it professional
+# Create a PGM object with professional styling
+pgm = daft.PGM(dpi=150, alternate_style="outer")
+
+# Add Lemons node (independent variable)
+pgm.add_node("lemons", "Lemons" + r" $(X)$", 1, 1, aspect=2.5, scale=1.2,
+             plot_params={
+                 'facecolor': '#FFE66D',  # Warm yellow for lemons
+                 'edgecolor': '#F4A259',   # Orange border
+                 'linewidth': 2.5,
+                 'alpha': 0.9,
+             })
+
+# Add Scurvy Prevention node (dependent variable)
+pgm.add_node("scurvy", "Scurvy\nPrevention" + r" $(Y)$", 3.5, 1, aspect=2.5, scale=1.2,
+             plot_params={
+                 'facecolor': '#06D6A0',  # Teal for health/prevention
+                 'edgecolor': '#118AB2',  # Deeper blue border
+                 'linewidth': 2.5,
+                 'alpha': 0.9,
+             })
+
+# Add edge showing causal relationship
+pgm.add_edge("lemons", "scurvy", plot_params={'linewidth': 2.5, 'color': '#073B4C'})
+
+# Render the DAG
+pgm.render()
+plt.title("1747 Understanding: Lemons Prevent Scurvy", fontsize=14, fontweight='bold', pad=15)
+plt.tight_layout()
+plt.show()
 ```
 
 ### DAG 2: The Misguided Belief (Wrong Understanding)
@@ -120,13 +147,51 @@ Your task is to recreate these three historical DAGs using DAFT, making them vis
 ```{python}
 #| label: dag-2-misguided
 #| echo: true
+#| fig-cap: "DAG 2: The Misguided Belief - Acid kills bacteria to prevent scurvy (wrong understanding)"
 
-# TODO: Replace this placeholder with your DAFT code
-# Create a DAG showing the misguided belief: Acid → Bacteria Death → Scurvy Prevention
+import daft
+import matplotlib.pyplot as plt
 
-# Your code here - recreate the DAG from the reference image
-# This DAG should show the incorrect causal chain
-# Use different colors or styling to indicate this is the wrong understanding
+# Create a PGM object with professional styling
+pgm = daft.PGM(dpi=150, alternate_style="outer")
+
+# Add Acid node (independent variable) - using red/warning colors - TOP
+pgm.add_node("acid", "Acid" + r" $(X)$", 2.5, 3, aspect=2.5, scale=1.2,
+             plot_params={
+                 'facecolor': '#FFB6B9',  # Light coral pink (warning color)
+                 'edgecolor': '#E63946',  # Red border (error/wrong)
+                 'linewidth': 2.5,
+                 'alpha': 0.85,
+             })
+
+# Add Bacteria Death node (mediator variable) - using orange/amber colors - MIDDLE
+pgm.add_node("bacteria", "Bacteria\nDeath" + r" $(M)$", 2.5, 2, aspect=2.5, scale=1.2,
+             plot_params={
+                 'facecolor': '#FFDAB9',  # Peach puff
+                 'edgecolor': '#FF6B35',  # Orange border
+                 'linewidth': 2.5,
+                 'alpha': 0.85,
+             })
+
+# Add Scurvy Prevention node (dependent variable) - still using muted colors - BOTTOM
+pgm.add_node("scurvy", "Scurvy\nPrevention" + r" $(Y)$", 2.5, 1, aspect=2.5, scale=1.2,
+             plot_params={
+                 'facecolor': '#C9ADA7',  # Muted mauve (false conclusion)
+                 'edgecolor': '#9A8C98',  # Gray-purple border
+                 'linewidth': 2.5,
+                 'alpha': 0.85,
+             })
+
+# Add edges showing the incorrect causal chain
+pgm.add_edge("acid", "bacteria", plot_params={'linewidth': 2.5, 'color': '#E63946'})
+pgm.add_edge("bacteria", "scurvy", plot_params={'linewidth': 2.5, 'color': '#E63946'})
+
+# Render the DAG
+pgm.render()
+plt.title("Misguided Belief: Acid → Bacteria Death → Scurvy Prevention (WRONG!)", 
+          fontsize=14, fontweight='bold', pad=15, color='#8B0000')
+plt.tight_layout()
+plt.show()
 ```
 
 ### DAG 3: The 1928 Understanding (Complete and Correct)
@@ -141,13 +206,41 @@ Your task is to recreate these three historical DAGs using DAFT, making them vis
 ```{python}
 #| label: dag-3-1928
 #| echo: true
+#| fig-cap: "DAG 3: The 1928 Understanding - Vitamin C prevents scurvy (complete and correct)"
 
-# TODO: Replace this placeholder with your DAFT code
-# Create a DAG showing the 1928 understanding: Vitamin C → Scurvy Prevention
+import daft
+import matplotlib.pyplot as plt
 
-# Your code here - recreate the DAG from the reference image
-# This should be the most complete and accurate representation
-# Use professional styling that would be suitable for a scientific publication
+# Create a PGM object with professional styling
+pgm = daft.PGM(dpi=150, alternate_style="outer")
+
+# Add Vitamin C node (independent variable) - using scientific blue-green colors
+pgm.add_node("vitamin_c", "Vitamin C\nIntake" + r" $(X)$", 1, 1, aspect=3, scale=1.3,
+             plot_params={
+                 'facecolor': '#A8DADC',  # Powder blue (scientific/medical)
+                 'edgecolor': '#457B9D',  # Steel blue border
+                 'linewidth': 3,
+                 'alpha': 0.95,
+             })
+
+# Add Scurvy Prevention node (dependent variable) - using success green colors
+pgm.add_node("scurvy", "Scurvy\nPrevention" + r" $(Y)$", 3.8, 1, aspect=3, scale=1.3,
+             plot_params={
+                 'facecolor': '#06D6A0',  # Teal green (health/success)
+                 'edgecolor': '#1D3557',  # Deep navy border
+                 'linewidth': 3,
+                 'alpha': 0.95,
+             })
+
+# Add edge showing the correct causal relationship
+pgm.add_edge("vitamin_c", "scurvy", plot_params={'linewidth': 3, 'color': '#1D3557', 'alpha': 0.9})
+
+# Render the DAG
+pgm.render()
+plt.title("1928 Understanding: Vitamin C Prevents Scurvy (CORRECT!)", 
+          fontsize=14, fontweight='bold', pad=15, color='#1D3557')
+plt.tight_layout()
+plt.show()
 ```
 
 ## Student Requirements Section: Mastering DAFT Visualization {#student-analysis-section}
